@@ -19,17 +19,15 @@ const markGradient = `
     <stop offset="1" stop-color="#8B5CF6"/>
   </linearGradient>`;
 
-// Square mark (the rounded gradient tile + connected-nodes glyph)
-function markSVG(size) {
+// Brainotix brand mark: the split "O" — orange left half, grey right half.
+// Matches assets/favicon.svg. `withBg` adds a white rounded tile (for the iOS
+// home-screen icon, which doesn't support transparency well).
+function markSVG(size, withBg) {
+  const bg = withBg ? `<rect width="64" height="64" rx="14" fill="#ffffff"/>` : '';
   return `<svg width="${size}" height="${size}" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-    <defs>${markGradient}</defs>
-    <rect x="3" y="3" width="58" height="58" rx="16" fill="url(#bx)"/>
-    <g stroke="#fff" stroke-width="3.4" fill="#fff" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M20 24 H44 M20 24 L32 44 M44 24 L32 44" fill="none"/>
-      <circle cx="20" cy="24" r="4.6"/>
-      <circle cx="44" cy="24" r="4.6"/>
-      <circle cx="32" cy="44" r="4.6"/>
-    </g>
+    ${bg}
+    <path d="M31 7 A25 25 0 0 0 31 57 Z" fill="#DE7500"/>
+    <path d="M33 7 A25 25 0 0 1 33 57 Z" fill="#828282"/>
   </svg>`;
 }
 
@@ -84,8 +82,8 @@ const ogSVG = `<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http
 </svg>`;
 
 (async () => {
-  await sharp(Buffer.from(markSVG(32))).png().toFile(path.join(ASSETS, 'favicon-32.png'));
-  await sharp(Buffer.from(markSVG(180))).png().toFile(path.join(ASSETS, 'apple-touch-icon.png'));
+  await sharp(Buffer.from(markSVG(32, false))).png().toFile(path.join(ASSETS, 'favicon-32.png'));
+  await sharp(Buffer.from(markSVG(180, true))).png().toFile(path.join(ASSETS, 'apple-touch-icon.png'));
   await sharp(Buffer.from(ogSVG)).png().toFile(path.join(ASSETS, 'og-image.png'));
   console.log('✓ Generated favicon-32.png, apple-touch-icon.png, og-image.png');
 })().catch((e) => {

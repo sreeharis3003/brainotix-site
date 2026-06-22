@@ -161,6 +161,13 @@ app.get('/api/health', (req, res) => res.json({ ok: true, smtp: !!transporter })
 // Brand/build assets (compiled CSS, favicons, og-image) live in /assets only.
 app.use('/assets', express.static(path.join(ROOT, 'assets'), { maxAge: '7d' }));
 
+// Browsers auto-request /favicon.ico at the root. Without this it would fall through
+// to the catch-all and return index.html (HTML) — which makes the tab show a generic
+// globe. Serve the real brand icon instead.
+app.get('/favicon.ico', (req, res) =>
+  res.sendFile(path.join(ROOT, 'assets', 'favicon-32.png'))
+);
+
 // Serve index.html for any other (non-API, non-asset) GET. This intentionally
 // never exposes server.js, .env, package.json, or the data/ folder.
 app.get(/^(?!\/(api|assets)\/).*/, (req, res) => res.sendFile(path.join(ROOT, 'index.html')));
