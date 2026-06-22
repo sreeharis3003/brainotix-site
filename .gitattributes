@@ -1,0 +1,15 @@
+# Force LF line endings for shell scripts so they run on the Linux server
+# (Windows CRLF would cause "/usr/bin/env: bash\r: No such file or directory").
+*.sh text eol=lf
+
+# Normalize text files
+*.js   text
+*.css  text
+*.html text
+*.json text
+*.md   text
+
+# Treat binaries as-is
+*.png  binary
+*.svg  text
+*.ico  binary

@@ -1,0 +1,6 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Brainotix Solutions">
+  <!-- left half: orange -->
+  <path d="M31 7 A25 25 0 0 0 31 57 Z" fill="#DE7500"/>
+  <!-- right half: grey -->
+  <path d="M33 7 A25 25 0 0 1 33 57 Z" fill="#828282"/>
+</svg>

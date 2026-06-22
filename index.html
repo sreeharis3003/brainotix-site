@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brainotix Solutions — A Complete Suite of IT Solutions for Banking &amp; Finance</title>
+  <meta name="description" content="Brainotix Solutions delivers enterprise software for banking & financial institutions — Procure-to-Pay, Digital Banking, Trade Finance, Expense, Vendor, Asset, Workflow, Patch Management, Application Whitelisting & GST/TDS Reconciliation, with RPA at the core. Serving clients across the world." />
+
+  <meta name="theme-color" content="#060A14" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=3" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=3" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=3" />
+
+  <!-- Canonical + Open Graph / Twitter -->
+  <!-- NOTE: if your live domain is not www.brainotix.com, find-and-replace it below + in og/twitter image URLs -->
+  <link rel="canonical" href="https://www.brainotix.com/" />
+  <meta property="og:title" content="Brainotix Solutions — The complete software suite for every financial institution" />
+  <meta property="og:description" content="A complete suite of IT solutions for the banking and financial industry, serving clients across the world." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.brainotix.com/" />
+  <meta property="og:image" content="https://www.brainotix.com/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Brainotix Solutions — The complete software suite for every financial institution" />
+  <meta name="twitter:description" content="A complete suite of IT solutions for the banking and financial industry, serving clients across the world." />
+  <meta name="twitter:image" content="https://www.brainotix.com/assets/og-image.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Compiled Tailwind (build with: npm run build:css) -->
+  <link rel="stylesheet" href="assets/styles.css" />
+
+  <style>
+    :root { color-scheme: dark; }
+    html, body { background: #060A14; }
+    body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden; cursor: default; }
+    /* keep the text cursor only on actual text fields */
+    input[type="text"], input[type="email"], input[type="tel"], input[type="url"], input[type="search"], textarea { cursor: text; }
+    select { cursor: pointer; }
+
+    /* ---------- Aurora / gradient mesh background ---------- */
+    .aurora { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+    /* oversized inner layer so the parallax pan never reveals a viewport edge */
+    .aurora-blobs { position: absolute; inset: -25vw; will-change: transform; }
+    .aurora span {
+      position: absolute; display: block; border-radius: 9999px;
+      filter: blur(80px); opacity: 0.45; will-change: transform;
+    }
+    .aurora .b1 { width: 46vw; height: 46vw; left: -10vw; top: -8vw;
+      background: radial-gradient(circle at 30% 30%, #0EA5E9, transparent 60%);
+      animation: drift1 22s ease-in-out infinite; }
+    .aurora .b2 { width: 40vw; height: 40vw; right: -8vw; top: 10vh;
+      background: radial-gradient(circle at 60% 40%, #8B5CF6, transparent 62%);
+      animation: drift2 26s ease-in-out infinite; }
+    .aurora .b3 { width: 38vw; height: 38vw; left: 20vw; bottom: -14vw;
+      background: radial-gradient(circle at 50% 50%, #22D3EE, transparent 60%);
+      opacity: 0.3; animation: drift3 30s ease-in-out infinite; }
+    /* cursor-following lava blob (activated by JS on pointer devices) */
+    .aurora .glow { left: 0; top: 0; width: 48vw; height: 48vw; margin-left: -24vw; margin-top: -24vw;
+      background: radial-gradient(circle at center, hsl(var(--h, 200) 95% 65% / .6), hsl(var(--h, 200) 95% 60% / .18) 45%, transparent 66%);
+      opacity: 0; filter: blur(80px); transition: opacity .6s ease; will-change: transform; }
+    @keyframes drift1 { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(6vw,4vh,0) scale(1.1); } }
+    @keyframes drift2 { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(-5vw,6vh,0) scale(1.08); } }
+    @keyframes drift3 { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(4vw,-5vh,0) scale(1.12); } }
+
+    /* subtle grid overlay */
+    .grid-overlay { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 80%); }
+
+    /* ---------- Gradient text ---------- */
+    .grad-text { background: linear-gradient(100deg, #38BDF8 0%, #818CF8 45%, #22D3EE 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+    /* ---------- Glass cards ---------- */
+    .glass { background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .card-glow { position: relative; transition: transform .35s cubic-bezier(.2,.7,.2,1), border-color .35s; }
+    .card-glow::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
+      background: linear-gradient(130deg, rgba(56,189,248,.6), rgba(139,92,246,.5), transparent 60%);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      opacity: 0; transition: opacity .35s; }
+    .card-glow:hover { transform: translateY(-6px); border-color: rgba(255,255,255,0.14); }
+    .card-glow:hover::before { opacity: 1; }
+
+    /* ---------- Buttons ---------- */
+    .btn-primary { background: linear-gradient(100deg, #0EA5E9, #6366F1); box-shadow: 0 8px 30px -8px rgba(56,189,248,.6);
+      transition: transform .25s, box-shadow .25s, filter .25s; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 38px -8px rgba(99,102,241,.7); filter: brightness(1.06); }
+
+    /* ---------- Scroll reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal[data-delay="1"] { transition-delay: .08s; }
+    .reveal[data-delay="2"] { transition-delay: .16s; }
+    .reveal[data-delay="3"] { transition-delay: .24s; }
+    .reveal[data-delay="4"] { transition-delay: .32s; }
+
+    /* ---------- Marquee ---------- */
+    .marquee { display: flex; gap: 3rem; width: max-content; animation: scrollx 36s linear infinite; }
+    @keyframes scrollx { to { transform: translateX(-50%); } }
+    .marquee-mask { mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+
+    /* shimmer line */
+    .shimmer { background: linear-gradient(90deg, transparent, rgba(56,189,248,.9), transparent);
+      background-size: 200% 100%; animation: shimmer 3s linear infinite; }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+
+    /* pulse dot */
+    .live-dot { box-shadow: 0 0 0 0 rgba(34,211,238,.7); animation: pulse 2.2s infinite; }
+    @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(34,211,238,0); } 100% { box-shadow: 0 0 0 0 rgba(34,211,238,0); } }
+
+    /* focus visibility */
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+      outline: 2px solid #38BDF8; outline-offset: 3px; border-radius: 6px; }
+
+    ::selection { background: rgba(56,189,248,.3); }
+
+    /* ---------- Client logos (grayscale → colour on hover) ---------- */
+    .logo-wrap { height: 54px; display: flex; align-items: center; justify-content: center; }
+    .logo-img { max-height: 48px; max-width: 130px; object-fit: contain;
+      filter: grayscale(1); opacity: .7; transition: filter .4s ease, opacity .4s ease; }
+    .esaf-img { border-radius: 5px; }
+    .card-glow:hover .logo-img { filter: grayscale(0); opacity: 1; }
+    /* touch devices have no hover — show full colour by default */
+    @media (hover: none) { .logo-img { filter: grayscale(0); opacity: 1; } }
+
+    /* ---------- Scroll-spy active nav ---------- */
+    .nav-link { position: relative; }
+    .nav-link.active { color: #fff; }
+    .nav-link.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -7px; height: 2px;
+      border-radius: 2px; background: linear-gradient(90deg, #38BDF8, #8B5CF6); }
+
+    /* ---------- Reduced motion ---------- */
+    @media (prefers-reduced-motion: reduce) {
+      .aurora span, .marquee, .shimmer, .live-dot { animation: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body class="font-sans text-slate-200 antialiased relative">
+
+  <!-- Background layers -->
+  <div class="aurora" aria-hidden="true">
+    <div class="aurora-blobs" id="auroraBlobs">
+      <span class="b1"></span><span class="b2"></span><span class="b3"></span>
+    </div>
+    <span class="glow" id="cursorGlow"></span>
+  </div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <!-- Skip link -->
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-4 focus:left-4 focus:px-4 focus:py-2 focus:bg-brand-500 focus:text-white focus:rounded-lg">Skip to content</a>
+
+  <!-- ============ NAV ============ -->
+  <header class="fixed top-3 inset-x-3 sm:inset-x-4 z-50">
+    <nav class="mx-auto max-w-content glass rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between">
+      <a href="#top" class="flex items-center cursor-pointer" aria-label="Brainotix Solutions home">
+        <img src="assets/brainotix-logo-clean.png" alt="Brainotix Solutions" class="h-8 sm:h-9 w-auto" />
+      </a>
+
+      <div class="hidden lg:flex items-center gap-7 text-sm text-slate-300">
+        <a href="#about" class="nav-link hover:text-white transition-colors duration-200">About</a>
+        <a href="#solutions" class="nav-link hover:text-white transition-colors duration-200">Solutions</a>
+        <a href="#clients" class="nav-link hover:text-white transition-colors duration-200">Clients</a>
+        <a href="#vision" class="nav-link hover:text-white transition-colors duration-200">Vision</a>
+        <a href="#why" class="nav-link hover:text-white transition-colors duration-200">Why Brainotix</a>
+        <a href="#contact" class="nav-link hover:text-white transition-colors duration-200">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="#contact" class="hidden sm:inline-flex btn-primary cursor-pointer text-white text-sm font-500 px-4 py-2 rounded-xl">Contact Sales</a>
+        <button id="menuBtn" class="lg:hidden cursor-pointer inline-flex h-10 w-10 items-center justify-center rounded-xl glass text-white" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="lg:hidden hidden mx-auto max-w-content mt-2 glass rounded-2xl p-4">
+      <div class="flex flex-col gap-1 text-slate-200">
+        <a href="#about" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/5 transition-colors">About</a>
+        <a href="#solutions" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/5 transition-colors">Solutions</a>
+        <a href="#clients" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/5 transition-colors">Clients</a>
+        <a href="#vision" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/5 transition-colors">Vision</a>
+        <a href="#why" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/5 transition-colors">Why Brainotix</a>
+        <a href="#contact" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/5 transition-colors">Contact</a>
+        <a href="#contact" class="mobile-link btn-primary text-center text-white font-500 mt-2 px-3 py-2.5 rounded-xl">Contact Sales</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <span id="top"></span>
+
+    <!-- ============ HERO ============ -->
+    <section class="relative z-10 max-w-content mx-auto px-5 sm:px-6 pt-36 sm:pt-44 pb-20 sm:pb-28">
+      <div class="max-w-3xl">
+        <div class="reveal inline-flex items-center gap-2 glass rounded-full pl-2 pr-4 py-1.5 text-xs sm:text-sm text-slate-300">
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-cyan/10 text-cyan px-2.5 py-0.5 font-500">
+            <span class="h-1.5 w-1.5 rounded-full bg-cyan live-dot"></span> Serving clients across the world
+          </span>
+          A complete suite of IT solutions for banking &amp; finance
+        </div>
+
+        <h1 class="reveal font-display text-4xl sm:text-6xl lg:text-7xl font-700 leading-[1.05] tracking-tight text-white mt-6" data-delay="1">
+          The complete software suite for<br class="hidden sm:block" />
+          <span class="grad-text">every financial institution.</span>
+        </h1>
+
+        <p class="reveal text-base sm:text-xl text-slate-300/90 leading-relaxed mt-6 max-w-2xl" data-delay="2">
+          Our mission is to partner with banking and financial institutions to deliver innovative, cost-effective
+          solutions — creating excellence through the right blend of technology, expertise, well-defined processes
+          and progressive learning.
+        </p>
+
+        <div class="reveal flex flex-col sm:flex-row gap-3 sm:gap-4 mt-9" data-delay="3">
+          <a href="#contact" class="btn-primary cursor-pointer inline-flex items-center justify-center gap-2 text-white font-500 px-6 py-3.5 rounded-xl">
+            Talk to our team
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#solutions" class="cursor-pointer inline-flex items-center justify-center gap-2 glass hover:bg-white/[0.07] transition-colors duration-200 text-slate-100 font-500 px-6 py-3.5 rounded-xl">
+            Explore the suite
+          </a>
+        </div>
+
+        <!-- mini stats -->
+        <dl class="reveal grid grid-cols-3 gap-4 sm:gap-8 mt-14 max-w-xl" data-delay="4">
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-slate-400">Years in banking &amp; tech</dt>
+            <dd class="font-display text-2xl sm:text-3xl font-700 text-white mt-1"><span class="count" data-to="20">0</span>+</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-slate-400">Enterprise products</dt>
+            <dd class="font-display text-2xl sm:text-3xl font-700 text-white mt-1"><span class="count" data-to="12">0</span></dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-slate-400">Banking &amp; finance focus</dt>
+            <dd class="font-display text-2xl sm:text-3xl font-700 text-white mt-1"><span class="count" data-to="100">0</span>%</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============ EXPERTISE MARQUEE ============ -->
+    <section class="relative z-10 border-y border-white/5 bg-white/[0.015] py-8">
+      <p class="text-center text-xs uppercase tracking-[0.2em] text-slate-500 mb-6">Expertise across the banking technology stack</p>
+      <div class="marquee-mask overflow-hidden">
+        <div class="marquee items-center text-slate-400">
+          <span class="font-display font-600 text-base sm:text-lg whitespace-nowrap">Core Banking</span>
+          <span class="font-display font-600 text-base sm:text-lg whitespace-nowrap">Internet Banking</span>
+          <span class="font-display font-600 text-base sm:text-lg whitespace-nowrap">Mobile Banking</span>
+          <span class="font-display font-600 text-base sm:text-lg whitespace-nowrap">Payments &amp; Settlement</span>
+          <span class="font-display font-600 text-base sm:text-lg whitespace-nowrap">MIS Dashboards</span>
+          <span class="font-display font-600 text-base sm:text-lg whitespace-nowrap">CRM</span>
+          <span class="font-display font-600 text-base sm:text-lg whitespace-nowrap">ERP &amp; HRMS</span>
+          <span class="font-display font-600 text-base sm:text-lg whitespace-nowrap">RPA</span>
+          <!-- duplicate set for seamless loop -->
+          <span class="font-display font-600 text-base sm:text-lg whitespace-nowrap" aria-hidden="true">Core Banking</span>
+          <span class="font-display font-600 text-base sm:text-lg whitespace-nowrap" aria-hidden="true">Internet Banking</span>
+          <span class="font-display font-600 text-base sm:text-lg whitespace-nowrap" aria-hidden="true">Mobile Banking</span>
+          <span class="font-display font-600 text-base sm:text-lg whitespace-nowrap" aria-hidden="true">Payments &amp; Settlement</span>
+          <span class="font-display font-600 text-base sm:text-lg whitespace-nowrap" aria-hidden="true">MIS Dashboards</span>
+          <span class="font-display font-600 text-base sm:text-lg whitespace-nowrap" aria-hidden="true">CRM</span>
+          <span class="font-display font-600 text-base sm:text-lg whitespace-nowrap" aria-hidden="true">ERP &amp; HRMS</span>
+          <span class="font-display font-600 text-base sm:text-lg whitespace-nowrap" aria-hidden="true">RPA</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" class="relative z-10 max-w-content mx-auto px-5 sm:px-6 py-24 sm:py-32 scroll-mt-24">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
+        <div class="lg:col-span-5">
+          <p class="reveal text-sm font-600 tracking-wider uppercase grad-text">About us</p>
+          <h2 class="reveal font-display text-3xl sm:text-5xl font-700 text-white tracking-tight mt-3" data-delay="1">
+            20+ years of banking &amp; technology, in one team.
+          </h2>
+          <div class="reveal mt-7 glass rounded-2xl p-6 card-glow" data-delay="2">
+            <div class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-iris/20 to-iris/5 border border-iris/20 text-iris">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 16h.01M16 16h.01"/></svg>
+            </div>
+            <h3 class="font-display text-lg font-600 text-white mt-4">RPA at the core</h3>
+            <p class="text-slate-300/85 text-sm mt-2 leading-relaxed">
+              Our major focus is Robotic Process Automation in banking operations — going beyond rule-based
+              processes to deliver smarter, standardized workflows that cut cost and lift collaboration across departments.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 space-y-5 text-slate-300/90 leading-relaxed text-base sm:text-lg">
+          <p class="reveal" data-delay="1">
+            Brainotix Solutions was founded with a mission to provide cutting-edge solutions in the banking and
+            financial domain. We are a team of experts with more than <span class="text-white font-500">20 years of experience</span>
+            in banking and technology, set on delivering customer-centric, agile, secure and cost-effective solutions
+            to financial enterprises.
+          </p>
+          <p class="reveal" data-delay="2">
+            With deep experience designing, developing and implementing complex banking solutions — from Core Banking
+            to Digital Banking — we bring a genuine understanding of the banking domain, technology, user behaviour and
+            the future trends shaping the industry, setting new standards in software solution development across multiple platforms.
+          </p>
+          <p class="reveal" data-delay="3">
+            That understanding now powers a focus on Robotic Process Automation: helping enterprises achieve early cost
+            benefits while optimizing and standardizing processes across departments to drive collaboration and coordination.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SOLUTIONS ============ -->
+    <section id="solutions" class="relative z-10 max-w-content mx-auto px-5 sm:px-6 pb-24 sm:pb-32 scroll-mt-24">
+      <div class="max-w-2xl">
+        <p class="reveal text-sm font-600 tracking-wider uppercase grad-text">Solutions</p>
+        <h2 class="reveal font-display text-3xl sm:text-5xl font-700 text-white tracking-tight mt-3" data-delay="1">
+          A scalable, end-to-end enterprise suite.
+        </h2>
+        <p class="reveal text-slate-300/90 text-lg mt-5" data-delay="2">
+          Twenty-plus years of hands-on delivery across Core Banking, Internet &amp; Mobile Banking, payments,
+          MIS and CRM — combined with best-of-breed tools and industry best practices — in one customer-centric suite.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mt-14">
+
+        <!-- 1. Procure to Pay -->
+        <article id="sol-procure-to-pay" class="reveal card-glow glass rounded-3xl p-7 scroll-mt-24">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-400/20 to-brand-500/10 border border-brand-400/20 text-brand-400">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-600 text-white mt-6">Procure-to-Pay</h3>
+          <p class="text-slate-300/85 mt-3 text-sm leading-relaxed">
+            An enterprise P2P platform that unifies procurement with accounts payable — streamlining spend,
+            improving supplier evaluation and budget control. One unified suite from purchasing to supplier
+            management, built specifically for banking and financial organizations and aligned to your budgets,
+            discretion and workflows.
+          </p>
+        </article>
+
+        <!-- 2. Digital Banking -->
+        <article id="sol-digital-banking" class="reveal card-glow glass rounded-3xl p-7 scroll-mt-24" data-delay="1">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-iris/20 to-iris/5 border border-iris/20 text-iris">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M12 18h.01"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-600 text-white mt-6">Digital Banking</h3>
+          <p class="text-slate-300/85 mt-3 text-sm leading-relaxed">
+            A Digital Banking Suite that helps institutions deliver compelling experiences designed to attract,
+            engage and extend customer relationships. It drives innovation and growth with seamless CX and operational
+            excellence — the foundation for becoming a truly digital, ecosystem-centric bank.
+          </p>
+        </article>
+
+        <!-- 3. Trade Finance -->
+        <article id="sol-trade-finance" class="reveal card-glow glass rounded-3xl p-7 scroll-mt-24" data-delay="2">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan/20 to-cyan/5 border border-cyan/20 text-cyan">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-600 text-white mt-6">Trade Finance</h3>
+          <p class="text-slate-300/85 mt-3 text-sm leading-relaxed">
+            A solid, secure, multi-currency platform that unifies traditional and contemporary trade finance in one
+            modern architecture. Fully digitalized, extensively parameterized modules cover every aspect of trade
+            transactions, with reusable business components that accelerate innovation-led growth.
+          </p>
+        </article>
+
+        <!-- 4. Expense Management -->
+        <article id="sol-expense-management" class="reveal card-glow glass rounded-3xl p-7 scroll-mt-24" data-delay="3">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-400/20 to-iris/10 border border-white/10 text-brand-400">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20M6 15h4"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-600 text-white mt-6">Expense Management</h3>
+          <p class="text-slate-300/85 mt-3 text-sm leading-relaxed">
+            An enterprise payment suite that modernizes centralized payment landscapes with proven scalability and
+            agility for changing regulations. Integrates with Core Banking, ERP, HRMS, NSDL, GST Portal, AD, Email
+            &amp; SMS to streamline the full expense cycle — payment to reconciliation — with unified reporting and
+            built-in approval workflows.
+          </p>
+        </article>
+
+        <!-- 5. Vendor Management -->
+        <article id="sol-vendor-management" class="reveal card-glow glass rounded-3xl p-7 scroll-mt-24" data-delay="1">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-iris/20 to-iris/5 border border-iris/20 text-iris">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-600 text-white mt-6">Vendor Management</h3>
+          <p class="text-slate-300/85 mt-3 text-sm leading-relaxed">
+            A centralized record of all vendors — their key information, documentation and spend — in one place.
+            Seamless onboarding powered by all-in-one vendor &amp; contract lifecycle management, strict regulatory
+            compliance control, and KPI-based vendor rating for transparent, strategic vendor management.
+          </p>
+        </article>
+
+        <!-- 6. Vendor Self-Service -->
+        <article id="sol-vendor-self-service" class="reveal card-glow glass rounded-3xl p-7 scroll-mt-24" data-delay="2">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan/20 to-cyan/5 border border-cyan/20 text-cyan">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5M15 12H3"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-600 text-white mt-6">Vendor Self-Service</h3>
+          <p class="text-slate-300/85 mt-3 text-sm leading-relaxed">
+            A supplier portal that cuts the cost and overhead of invoice capture with a self-service console for
+            vendors. It strengthens buyer–supplier interaction with real-time transaction tracking, straight-through
+            invoice tagging and automated alerts — eliminating repetitive back-and-forth queries.
+          </p>
+        </article>
+
+        <!-- 7. Fixed Asset Management -->
+        <article id="sol-fixed-asset-management" class="reveal card-glow glass rounded-3xl p-7 scroll-mt-24" data-delay="1">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-400/20 to-brand-500/10 border border-brand-400/20 text-brand-400">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.27 6.96 8.73 5.04 8.73-5.04M12 22.08V12"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-600 text-white mt-6">Fixed Asset Management</h3>
+          <p class="text-slate-300/85 mt-3 text-sm leading-relaxed">
+            Financial tracking across the full asset lifecycle, with barcoding for real-time asset data, repairs and
+            maintenance. It couples with procurement to auto-onboard delivered assets, tags assets to branches and
+            employees, and auto-calculates depreciation — eliminating manual asset reconciliation.
+          </p>
+        </article>
+
+        <!-- 8. IT Asset Management -->
+        <article id="sol-it-asset-management" class="reveal card-glow glass rounded-3xl p-7 scroll-mt-24" data-delay="2">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-iris/20 to-iris/5 border border-iris/20 text-iris">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01M6 18h.01"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-600 text-white mt-6">IT Asset Management</h3>
+          <p class="text-slate-300/85 mt-3 text-sm leading-relaxed">
+            Discover, manage and track every IT asset — Windows, non-Windows, VMs and network devices — through
+            simple scanning. A single pane of glass for hardware specs, installed software, scan and ownership
+            history, plus monitoring of switches, routers, gateways and more.
+          </p>
+        </article>
+
+        <!-- 9. Workflow Management -->
+        <article id="sol-workflow-management" class="reveal card-glow glass rounded-3xl p-7 scroll-mt-24" data-delay="3">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan/20 to-iris/10 border border-white/10 text-cyan">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 6.51 8.59 10.49"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-600 text-white mt-6">Workflow Management</h3>
+          <p class="text-slate-300/85 mt-3 text-sm leading-relaxed">
+            Easy-to-use automation that standardizes and accelerates your core processes, including budget- and
+            discretion-based approvals. It auto-generates and signs in-flow documents and connects distributed
+            teams across channels — boosting productivity for remote and cross-functional collaboration.
+          </p>
+        </article>
+
+        <!-- 10. Patch Management System -->
+        <article id="sol-patch-management" class="reveal card-glow glass rounded-3xl p-7 scroll-mt-24" data-delay="1">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-400/20 to-brand-500/10 border border-brand-400/20 text-brand-400">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-600 text-white mt-6">Patch Management System</h3>
+          <p class="text-slate-300/85 mt-3 text-sm leading-relaxed">
+            Centralized, automated patch and vulnerability management across endpoints and servers. It discovers
+            missing patches, schedules policy-driven, staged rollouts, and keeps every device continuously compliant —
+            shrinking your security exposure without disrupting day-to-day operations.
+          </p>
+        </article>
+
+        <!-- 11. Application Whitelisting -->
+        <article id="sol-application-whitelisting" class="reveal card-glow glass rounded-3xl p-7 scroll-mt-24" data-delay="2">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-iris/20 to-iris/5 border border-iris/20 text-iris">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><path d="m9.5 16.5 1.5 1.5 3-3"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-600 text-white mt-6">Application Whitelisting</h3>
+          <p class="text-slate-300/85 mt-3 text-sm leading-relaxed">
+            Lock down endpoints so only trusted, approved applications can run. It blocks unauthorized, unknown and
+            malicious software by default and enforces least-privilege execution — hardening your organization against
+            ransomware and zero-day threats across every device.
+          </p>
+        </article>
+
+        <!-- 12. GST / TDS Reconciliation -->
+        <article id="sol-gst-tds-reconciliation" class="reveal card-glow glass rounded-3xl p-7 scroll-mt-24" data-delay="3">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan/20 to-cyan/5 border border-cyan/20 text-cyan">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h4M8 18h4"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-600 text-white mt-6">GST / TDS Reconciliation</h3>
+          <p class="text-slate-300/85 mt-3 text-sm leading-relaxed">
+            Automated reconciliation of GST and TDS data against returns, invoices and the GST portal. It matches input
+            tax credit, flags mismatches and discrepancies early, and generates audit-ready reports — removing manual
+            effort and ensuring accurate, timely statutory compliance.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ CLIENTS ============ -->
+    <section id="clients" class="relative z-10 max-w-content mx-auto px-5 sm:px-6 pb-24 sm:pb-32 scroll-mt-24">
+      <div class="text-center max-w-2xl mx-auto">
+        <p class="reveal text-sm font-600 tracking-wider uppercase grad-text">Trusted by</p>
+        <h2 class="reveal font-display text-3xl sm:text-5xl font-700 text-white tracking-tight mt-3" data-delay="1">
+          Banks &amp; financial institutions that rely on Brainotix.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-12 sm:mt-14">
+        <div class="reveal card-glow glass rounded-2xl p-4 flex flex-col items-center text-center gap-3">
+          <div class="logo-wrap"><img src="assets/logos/canara-clean.png" alt="Canara Bank logo" class="logo-img" loading="lazy" /></div>
+          <span class="font-display font-600 text-white text-sm sm:text-base">Canara Bank</span>
+        </div>
+        <div class="reveal card-glow glass rounded-2xl p-4 flex flex-col items-center text-center gap-3" data-delay="1">
+          <div class="logo-wrap"><img src="assets/logos/union-clean.png" alt="Union Bank of India logo" class="logo-img" loading="lazy" /></div>
+          <span class="font-display font-600 text-white text-sm sm:text-base">Union Bank of India</span>
+        </div>
+        <div class="reveal card-glow glass rounded-2xl p-4 flex flex-col items-center text-center gap-3" data-delay="2">
+          <div class="logo-wrap"><img src="assets/logos/sib-clean.png" alt="South Indian Bank logo" class="logo-img" loading="lazy" /></div>
+          <span class="font-display font-600 text-white text-sm sm:text-base">South Indian Bank</span>
+        </div>
+        <div class="reveal card-glow glass rounded-2xl p-4 flex flex-col items-center text-center gap-3" data-delay="1">
+          <div class="logo-wrap"><img src="assets/logos/esaf-clean.png" alt="ESAF Bank logo" class="logo-img esaf-img" loading="lazy" /></div>
+          <span class="font-display font-600 text-white text-sm sm:text-base">ESAF Bank</span>
+        </div>
+        <div class="reveal card-glow glass rounded-2xl p-4 flex flex-col items-center text-center gap-3" data-delay="2">
+          <div class="logo-wrap"><img src="assets/logos/grameen-clean.png" alt="Karnataka Grameena Bank logo" class="logo-img" loading="lazy" /></div>
+          <span class="font-display font-600 text-white text-sm sm:text-base">Karnataka Grameena Bank</span>
+        </div>
+        <div class="reveal card-glow glass rounded-2xl p-4 flex flex-col items-center text-center gap-3" data-delay="3">
+          <div class="logo-wrap"><img src="assets/logos/grameen-clean.png" alt="Kerala Grameena Bank logo" class="logo-img" loading="lazy" /></div>
+          <span class="font-display font-600 text-white text-sm sm:text-base">Kerala Grameena Bank</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VISION / MISSION / ETHICS ============ -->
+    <section id="vision" class="relative z-10 max-w-content mx-auto px-5 sm:px-6 pb-24 sm:pb-32 scroll-mt-24">
+      <div class="grid md:grid-cols-3 gap-5 sm:gap-6">
+        <!-- Vision -->
+        <article class="reveal card-glow glass rounded-3xl p-8">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-400/20 to-brand-500/10 border border-brand-400/20 text-brand-400">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3 class="font-display text-2xl font-700 text-white mt-6">Vision</h3>
+          <p class="text-slate-300/90 mt-3 leading-relaxed">
+            To be a market leader in the banking technology solutions and services space, providing clear value and
+            return on investment to our customers.
+          </p>
+        </article>
+
+        <!-- Mission -->
+        <article class="reveal card-glow glass rounded-3xl p-8" data-delay="1">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-iris/20 to-iris/5 border border-iris/20 text-iris">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+          </div>
+          <h3 class="font-display text-2xl font-700 text-white mt-6">Mission</h3>
+          <p class="text-slate-300/90 mt-3 leading-relaxed">
+            Partner with banking and financial institutions to deliver innovative, cost-effective solutions and create
+            excellence — through the right blend of technology and expertise, well-defined processes and progressive
+            learning in an exuberant environment.
+          </p>
+        </article>
+
+        <!-- Ethics & Values -->
+        <article class="reveal card-glow glass rounded-3xl p-8" data-delay="2">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan/20 to-cyan/5 border border-cyan/20 text-cyan">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h3 class="font-display text-2xl font-700 text-white mt-6">Ethics &amp; Values</h3>
+          <p class="text-slate-300/90 mt-3 leading-relaxed">
+            Commitment to our customers' success. Through collaboration and teamwork we build trust — with responsible
+            actions and honest relationships.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ WHY / VALUE ============ -->
+    <section id="why" class="relative z-10 max-w-content mx-auto px-5 sm:px-6 pb-24 sm:pb-32 scroll-mt-24">
+      <div class="max-w-2xl">
+        <p class="reveal text-sm font-600 tracking-wider uppercase grad-text">Why Brainotix</p>
+        <h2 class="reveal font-display text-3xl sm:text-5xl font-700 text-white tracking-tight mt-3" data-delay="1">Built by people who know banking.</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mt-14">
+        <div class="reveal card-glow glass rounded-2xl p-7">
+          <svg class="h-7 w-7 text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8V4l8 8-8 8v-4H4V8z"/></svg>
+          <h3 class="font-display text-lg font-600 text-white mt-4">Banking domain depth</h3>
+          <p class="text-slate-300/85 mt-2 text-sm leading-relaxed">20+ years across Core Banking, Internet &amp; Mobile Banking, payments and settlement — we understand the domain, not just the code.</p>
+        </div>
+        <div class="reveal card-glow glass rounded-2xl p-7" data-delay="1">
+          <svg class="h-7 w-7 text-iris" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
+          <h3 class="font-display text-lg font-600 text-white mt-4">RPA-first automation</h3>
+          <p class="text-slate-300/85 mt-2 text-sm leading-relaxed">We go beyond rule-based scripts to standardize and optimize processes across departments — early cost benefits, lasting efficiency.</p>
+        </div>
+        <div class="reveal card-glow glass rounded-2xl p-7" data-delay="2">
+          <svg class="h-7 w-7 text-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+          <h3 class="font-display text-lg font-600 text-white mt-4">End-to-end suite</h3>
+          <p class="text-slate-300/85 mt-2 text-sm leading-relaxed">Twelve integrated products — from procurement and payments to security, assets and workflow — in one scalable enterprise application suite.</p>
+        </div>
+        <div class="reveal card-glow glass rounded-2xl p-7" data-delay="1">
+          <svg class="h-7 w-7 text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+          <h3 class="font-display text-lg font-600 text-white mt-4">Secure &amp; compliant</h3>
+          <p class="text-slate-300/85 mt-2 text-sm leading-relaxed">Secure, agile delivery with strict regulatory compliance and seamless integration into Core Banking, ERP, HRMS, GST Portal and more.</p>
+        </div>
+        <div class="reveal card-glow glass rounded-2xl p-7" data-delay="2">
+          <svg class="h-7 w-7 text-iris" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <h3 class="font-display text-lg font-600 text-white mt-4">Customer-centric</h3>
+          <p class="text-slate-300/85 mt-2 text-sm leading-relaxed">We measure success by your value and return on investment — collaborative, transparent and honest at every step.</p>
+        </div>
+        <div class="reveal card-glow glass rounded-2xl p-7" data-delay="3">
+          <svg class="h-7 w-7 text-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></svg>
+          <h3 class="font-display text-lg font-600 text-white mt-4">Cross-platform expertise</h3>
+          <p class="text-slate-300/85 mt-2 text-sm leading-relaxed">Best-of-breed tools and diverse platforms, combined with industry best practices, to ship reliable solutions at scale.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MISSION BANNER ============ -->
+    <section class="relative z-10 max-w-content mx-auto px-5 sm:px-6 pb-20 sm:pb-28">
+      <figure class="reveal glass rounded-3xl p-8 sm:p-14 text-center max-w-4xl mx-auto relative overflow-hidden">
+        <div class="shimmer h-px w-full absolute top-0 left-0" aria-hidden="true"></div>
+        <p class="text-sm font-600 tracking-wider uppercase grad-text">Our purpose</p>
+        <blockquote class="font-display text-xl sm:text-3xl font-500 text-white leading-snug mt-5">
+          &ldquo;We set new trends and standards in software solution development for banking — combining deep domain
+          understanding with the right blend of technology, process and progressive learning.&rdquo;
+        </blockquote>
+        <a href="#contact" class="btn-primary cursor-pointer inline-flex items-center justify-center gap-2 text-white font-500 px-6 py-3.5 rounded-xl mt-8">
+          Start a conversation
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </figure>
+    </section>
+
+    <!-- ============ CONTACT / CTA ============ -->
+    <section id="contact" class="relative z-10 max-w-content mx-auto px-5 sm:px-6 pb-20 sm:pb-28 scroll-mt-24">
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+        <div>
+          <p class="reveal text-sm font-600 tracking-wider uppercase grad-text">Contact Sales</p>
+          <h2 class="reveal font-display text-3xl sm:text-5xl font-700 text-white tracking-tight mt-3" data-delay="1">Let's build something secure together.</h2>
+          <p class="reveal text-slate-300/90 text-lg mt-5" data-delay="2">Tell us what you're building or modernizing in your banking technology stack. We'll get back to you with the right experts on the call.</p>
+
+          <div class="reveal mt-9 space-y-4" data-delay="3">
+            <a href="mailto:contactus@brainotix.com" class="flex items-center gap-3 text-slate-200 hover:text-white transition-colors cursor-pointer w-fit">
+              <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl glass text-brand-400 shrink-0"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>
+              contactus@brainotix.com
+            </a>
+            <div class="flex items-start gap-3 text-slate-200">
+              <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl glass text-iris shrink-0"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+              <span>Head office: 1st Wing, 4th Floor, Nelson Towers,<br />Nelson Manickam Road, Aminjikarai, Chennai – 600029.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <form id="contactForm" class="reveal glass rounded-3xl p-6 sm:p-8" data-delay="2" novalidate>
+          <!-- Honeypot: hidden from real users, catches spam bots -->
+          <div class="hidden" aria-hidden="true">
+            <label>Leave this field empty
+              <input type="text" name="website" tabindex="-1" autocomplete="off" />
+            </label>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label for="name" class="block text-sm font-500 text-slate-200 mb-1.5">Full name</label>
+              <input id="name" name="name" type="text" required autocomplete="name" class="w-full rounded-xl bg-white/[0.04] border border-white/10 px-4 py-3 text-white placeholder-slate-500 focus:border-brand-400/60 focus:bg-white/[0.06] transition-colors" placeholder="Your name" />
+            </div>
+            <div>
+              <label for="company" class="block text-sm font-500 text-slate-200 mb-1.5">Company</label>
+              <input id="company" name="company" type="text" autocomplete="organization" class="w-full rounded-xl bg-white/[0.04] border border-white/10 px-4 py-3 text-white placeholder-slate-500 focus:border-brand-400/60 focus:bg-white/[0.06] transition-colors" placeholder="Organization" />
+            </div>
+          </div>
+          <div class="mt-4">
+            <label for="email" class="block text-sm font-500 text-slate-200 mb-1.5">Work email</label>
+            <input id="email" name="email" type="email" required autocomplete="email" class="w-full rounded-xl bg-white/[0.04] border border-white/10 px-4 py-3 text-white placeholder-slate-500 focus:border-brand-400/60 focus:bg-white/[0.06] transition-colors" placeholder="you@company.com" />
+          </div>
+          <div class="mt-4">
+            <label for="interest" class="block text-sm font-500 text-slate-200 mb-1.5">I'm interested in</label>
+            <select id="interest" name="interest" class="w-full rounded-xl bg-white/[0.04] border border-white/10 px-4 py-3 text-white focus:border-brand-400/60 focus:bg-white/[0.06] transition-colors cursor-pointer">
+              <option class="bg-surface">Procure-to-Pay</option>
+              <option class="bg-surface">Digital Banking</option>
+              <option class="bg-surface">Trade Finance</option>
+              <option class="bg-surface">Expense Management</option>
+              <option class="bg-surface">Vendor Management</option>
+              <option class="bg-surface">Vendor Self-Service</option>
+              <option class="bg-surface">Fixed Asset Management</option>
+              <option class="bg-surface">IT Asset Management</option>
+              <option class="bg-surface">Workflow Management</option>
+              <option class="bg-surface">Patch Management System</option>
+              <option class="bg-surface">Application Whitelisting</option>
+              <option class="bg-surface">GST / TDS Reconciliation</option>
+              <option class="bg-surface">Robotic Process Automation (RPA)</option>
+              <option class="bg-surface">Something else</option>
+            </select>
+          </div>
+          <div class="mt-4">
+            <label for="message" class="block text-sm font-500 text-slate-200 mb-1.5">Message</label>
+            <textarea id="message" name="message" rows="4" class="w-full rounded-xl bg-white/[0.04] border border-white/10 px-4 py-3 text-white placeholder-slate-500 focus:border-brand-400/60 focus:bg-white/[0.06] transition-colors resize-none" placeholder="Tell us briefly what you need…"></textarea>
+          </div>
+          <button type="submit" class="btn-primary cursor-pointer w-full mt-6 text-white font-500 px-6 py-3.5 rounded-xl inline-flex items-center justify-center gap-2">
+            Send message
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"/></svg>
+          </button>
+          <p id="formNote" class="text-sm mt-4 text-center" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="relative z-10 border-t border-white/5 mt-10">
+    <div class="max-w-content mx-auto px-5 sm:px-6 py-12">
+      <div class="grid lg:grid-cols-12 gap-10">
+        <!-- Brand + contact -->
+        <div class="lg:col-span-4">
+          <a href="#top" class="flex items-center w-fit cursor-pointer">
+            <img src="assets/brainotix-logo-clean.png" alt="Brainotix Solutions" class="h-9 w-auto" />
+          </a>
+          <p class="text-slate-400 text-sm mt-4 leading-relaxed max-w-xs">A complete suite of IT solutions for the banking and financial industry, serving clients across the world.</p>
+          <div class="mt-6 space-y-3 text-sm">
+            <a href="mailto:contactus@brainotix.com" class="flex items-center gap-2.5 text-slate-300 hover:text-white transition-colors w-fit">
+              <svg class="h-4 w-4 text-brand-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+              contactus@brainotix.com
+            </a>
+            <p class="flex items-start gap-2.5 text-slate-400">
+              <svg class="h-4 w-4 text-iris shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Nelson Towers, Nelson Manickam Road,<br />Aminjikarai, Chennai – 600029</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Solutions, grouped -->
+        <div class="lg:col-span-6 grid grid-cols-2 md:grid-cols-3 gap-8 text-sm">
+          <div>
+            <h4 class="font-600 text-white mb-4">Procurement &amp; Spend</h4>
+            <ul class="space-y-2.5 text-slate-400">
+              <li><a href="#sol-procure-to-pay" class="hover:text-white transition-colors">Procure-to-Pay</a></li>
+              <li><a href="#sol-expense-management" class="hover:text-white transition-colors">Expense Management</a></li>
+              <li><a href="#sol-vendor-management" class="hover:text-white transition-colors">Vendor Management</a></li>
+              <li><a href="#sol-vendor-self-service" class="hover:text-white transition-colors">Vendor Self-Service</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-600 text-white mb-4">Banking &amp; Assets</h4>
+            <ul class="space-y-2.5 text-slate-400">
+              <li><a href="#sol-digital-banking" class="hover:text-white transition-colors">Digital Banking</a></li>
+              <li><a href="#sol-trade-finance" class="hover:text-white transition-colors">Trade Finance</a></li>
+              <li><a href="#sol-fixed-asset-management" class="hover:text-white transition-colors">Fixed Asset Mgmt</a></li>
+              <li><a href="#sol-it-asset-management" class="hover:text-white transition-colors">IT Asset Mgmt</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-600 text-white mb-4">Security &amp; Automation</h4>
+            <ul class="space-y-2.5 text-slate-400">
+              <li><a href="#sol-patch-management" class="hover:text-white transition-colors">Patch Management</a></li>
+              <li><a href="#sol-application-whitelisting" class="hover:text-white transition-colors">Application Whitelisting</a></li>
+              <li><a href="#sol-gst-tds-reconciliation" class="hover:text-white transition-colors">GST / TDS Reconciliation</a></li>
+              <li><a href="#sol-workflow-management" class="hover:text-white transition-colors">Workflow Management</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Company -->
+        <div class="lg:col-span-2">
+          <h4 class="font-600 text-white mb-4">Company</h4>
+          <ul class="space-y-2.5 text-slate-400 text-sm">
+            <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
+            <li><a href="#vision" class="hover:text-white transition-colors">Vision &amp; Mission</a></li>
+            <li><a href="#why" class="hover:text-white transition-colors">Why Brainotix</a></li>
+            <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/5 mt-10 pt-6 flex flex-col sm:flex-row justify-between gap-3 text-xs text-slate-500">
+        <p>&copy; <span id="year">2026</span> Brainotix Solutions. All rights reserved.</p>
+        <p>Serving the banking &amp; financial industry worldwide.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ---- Year ---- */
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      /* ---- Mobile menu ---- */
+      var menuBtn = document.getElementById('menuBtn');
+      var menu = document.getElementById('mobileMenu');
+      menuBtn.addEventListener('click', function () {
+        var open = menu.classList.toggle('hidden') === false;
+        menuBtn.setAttribute('aria-expanded', String(open));
+      });
+      document.querySelectorAll('.mobile-link').forEach(function (l) {
+        l.addEventListener('click', function () {
+          menu.classList.add('hidden');
+          menuBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      /* ---- Smooth in-page navigation (works inside previews/iframes) ---- */
+      document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          var id = link.getAttribute('href');
+          if (!id || id === '#' || id.length < 2) return;
+          var target = document.querySelector(id);
+          if (!target) return;
+          e.preventDefault();
+          var top = target.getBoundingClientRect().top + window.pageYOffset - 90;
+          window.scrollTo({ top: Math.max(top, 0), behavior: reduce ? 'auto' : 'smooth' });
+          if (history.replaceState) history.replaceState(null, '', id);
+        });
+      });
+
+      /* ---- Scroll-spy: highlight the section currently in view ---- */
+      var spyIds = ['about', 'solutions', 'clients', 'vision', 'why', 'contact'];
+      var spySections = spyIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+      var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
+      function spy() {
+        if (!spySections.length) return;
+        var pos = window.scrollY + 140;
+        // pick the section whose top is the closest one at or above the line
+        var currentId = null, bestTop = -Infinity, minTop = Infinity, firstId = null, maxTop = -Infinity, lastId = null;
+        spySections.forEach(function (s) {
+          var top = s.getBoundingClientRect().top + window.scrollY;
+          if (top < minTop) { minTop = top; firstId = s.id; }
+          if (top > maxTop) { maxTop = top; lastId = s.id; }
+          if (top <= pos && top > bestTop) { bestTop = top; currentId = s.id; }
+        });
+        if (!currentId) currentId = firstId;
+        // at the very bottom, force the lowest section (covers short last sections)
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+          currentId = lastId;
+        }
+        navLinks.forEach(function (l) {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + currentId);
+        });
+      }
+      window.addEventListener('scroll', spy, { passive: true });
+      window.addEventListener('resize', spy, { passive: true });
+      spy();
+
+      /* ---- Nav background on scroll ---- */
+      var nav = document.querySelector('header nav');
+      function onScroll() {
+        if (window.scrollY > 20) { nav.classList.add('shadow-2xl'); nav.style.background = 'rgba(11,17,32,0.7)'; }
+        else { nav.classList.remove('shadow-2xl'); nav.style.background = ''; }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      /* ---- Scroll reveal ---- */
+      var reveals = document.querySelectorAll('.reveal');
+      if (reduce || !('IntersectionObserver' in window)) {
+        reveals.forEach(function (el) { el.classList.add('in'); });
+      } else {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(function (el) { io.observe(el); });
+      }
+
+      /* ---- Count up ---- */
+      function animateCount(el) {
+        var to = parseFloat(el.getAttribute('data-to'));
+        var suffix = el.getAttribute('data-suffix') || '';
+        if (reduce) { el.textContent = to + suffix; return; }
+        var start = null, dur = 1400;
+        function step(ts) {
+          if (!start) start = ts;
+          var p = Math.min((ts - start) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(to * eased) + (p === 1 ? suffix : '');
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+      var counts = document.querySelectorAll('.count');
+      if ('IntersectionObserver' in window) {
+        var cio = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { animateCount(e.target); cio.unobserve(e.target); }
+          });
+        }, { threshold: 0.6 });
+        counts.forEach(function (el) { cio.observe(el); });
+      } else {
+        counts.forEach(animateCount);
+      }
+
+      /* ---- Lava-lamp cursor reactivity ---- */
+      var auroraEl = document.querySelector('.aurora');
+      var auroraBlobs = document.getElementById('auroraBlobs');
+      var glow = document.getElementById('cursorGlow');
+      var finePointer = window.matchMedia('(pointer: fine)').matches;
+      if (!reduce && finePointer && auroraEl && auroraBlobs && glow) {
+        var tx = window.innerWidth / 2, ty = window.innerHeight / 2;
+        var cx = tx, cy = ty, raf = null;
+        function tick() {
+          raf = null;
+          cx += (tx - cx) * 0.075;
+          cy += (ty - cy) * 0.075;
+          var px = cx / window.innerWidth;
+          var py = cy / window.innerHeight;
+          glow.style.transform = 'translate3d(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px,0)';
+          glow.style.setProperty('--h', Math.round(190 + px * 150)); /* cyan/blue → violet/magenta */
+          auroraEl.style.filter = 'hue-rotate(' + ((px - 0.5) * 70).toFixed(1) + 'deg)';
+          auroraBlobs.style.transform = 'translate3d(' + ((px - 0.5) * -32).toFixed(1) + 'px,' + ((py - 0.5) * -32).toFixed(1) + 'px,0)';
+          if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) raf = requestAnimationFrame(tick);
+        }
+        window.addEventListener('mousemove', function (e) {
+          tx = e.clientX; ty = e.clientY;
+          if (!raf) raf = requestAnimationFrame(tick);
+        }, { passive: true });
+        glow.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+        glow.style.opacity = '0.62';
+      }
+
+      /* ---- Contact form (posts to backend, mailto fallback if unreachable) ---- */
+      var form = document.getElementById('contactForm');
+      var note = document.getElementById('formNote');
+      var submitBtn = form.querySelector('button[type="submit"]');
+
+      function mailtoLink(p) {
+        var subject = encodeURIComponent('New enquiry — ' + p.interest);
+        var body = encodeURIComponent(
+          'Name: ' + p.name + '\nCompany: ' + p.company +
+          '\nEmail: ' + p.email + '\nInterest: ' + p.interest +
+          '\n\n' + p.message
+        );
+        return 'mailto:contactus@brainotix.com?subject=' + subject + '&body=' + body;
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var name = form.name.value.trim();
+        var email = form.email.value.trim();
+        var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if (!name || !emailOk) {
+          note.textContent = 'Please enter your name and a valid work email.';
+          note.className = 'text-sm mt-4 text-center text-rose-400';
+          return;
+        }
+
+        var payload = {
+          name: name,
+          email: email,
+          company: form.company.value.trim(),
+          interest: form.interest.value,
+          message: form.message.value.trim(),
+          website: form.website ? form.website.value : ''
+        };
+
+        var originalBtn = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.7';
+        submitBtn.style.cursor = 'wait';
+        submitBtn.innerHTML = 'Sending…';
+        note.textContent = '';
+        note.className = 'text-sm mt-4 text-center text-slate-400';
+
+        try {
+          var res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          var data = await res.json().catch(function () { return {}; });
+          if (res.ok && data.ok) {
+            note.textContent = 'Thanks, ' + name.split(' ')[0] + '! Your message has been received — we’ll be in touch shortly.';
+            note.className = 'text-sm mt-4 text-center text-cyan';
+            form.reset();
+          } else {
+            note.innerHTML = (data.error || 'Sorry, that didn’t go through. ') +
+              ' <a class="underline hover:text-white" href="' + mailtoLink(payload) + '">Email us directly</a>.';
+            note.className = 'text-sm mt-4 text-center text-rose-400';
+          }
+        } catch (err) {
+          /* Server not reachable (e.g. opened as a static file) → mailto fallback */
+          note.innerHTML = 'Couldn’t reach the server — ' +
+            '<a class="underline hover:text-white" href="' + mailtoLink(payload) + '">click here to email us</a>.';
+          note.className = 'text-sm mt-4 text-center text-amber-400';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = '';
+          submitBtn.style.cursor = '';
+          submitBtn.innerHTML = originalBtn;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

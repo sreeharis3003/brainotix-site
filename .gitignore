@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Secrets — NEVER commit
+.env
+.env.*
+!.env.example
+
+# Runtime data (contact submissions may contain personal data)
+data/submissions.json
+
+# Logs
+*.log
+npm-debug.log*
+pm2.log
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local tooling (not part of the website)
+.claude/
