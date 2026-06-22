@@ -10,26 +10,41 @@
 #
 set -euo pipefail
 
-echo "==> [1/5] Installing system packages (Node 20, git, nginx)…"
+echo "==> [1/6] Installing system packages (Node 20, git, nginx)…"
 if ! command -v node >/dev/null 2>&1; then
   curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
   sudo apt-get install -y nodejs
 fi
 sudo apt-get install -y git nginx
 
-echo "==> [2/5] Installing npm dependencies…"
+echo "==> [2/6] Checking memory / swap…"
+# On low-memory instances (e.g. the $5 / 512 MB plan) add a 1 GB swap file so the
+# build step (sharp image processing + Tailwind) doesn't get OOM-killed.
+TOTAL_MEM_KB=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+if [ "${TOTAL_MEM_KB:-0}" -lt 1100000 ] && [ ! -f /swapfile ]; then
+  echo "    Low memory detected (~$((TOTAL_MEM_KB/1024)) MB) — creating a 1 GB swap file…"
+  sudo fallocate -l 1G /swapfile 2>/dev/null || sudo dd if=/dev/zero of=/swapfile bs=1M count=1024
+  sudo chmod 600 /swapfile
+  sudo mkswap /swapfile
+  sudo swapon /swapfile
+  grep -q '/swapfile' /etc/fstab || echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab >/dev/null
+else
+  echo "    Memory OK or swap already present — skipping."
+fi
+
+echo "==> [3/6] Installing npm dependencies…"
 npm install
 
-echo "==> [3/5] Building CSS + image assets…"
+echo "==> [4/6] Building CSS + image assets…"
 npm run build
 
-echo "==> [4/5] Preparing environment file…"
+echo "==> [5/6] Preparing environment file…"
 if [ ! -f .env ]; then
   cp .env.example .env
   echo "    Created .env from template — you MUST edit it with your SMTP credentials."
 fi
 
-echo "==> [5/5] Starting app with PM2…"
+echo "==> [6/6] Starting app with PM2…"
 if ! command -v pm2 >/dev/null 2>&1; then
   sudo npm install -g pm2
 fi
