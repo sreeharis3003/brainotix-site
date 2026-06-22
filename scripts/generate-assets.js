@@ -83,9 +83,10 @@ const ogSVG = `<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http
 
 (async () => {
   await sharp(Buffer.from(markSVG(32, false))).png().toFile(path.join(ASSETS, 'favicon-32.png'));
+  await sharp(Buffer.from(markSVG(96, false))).png().toFile(path.join(ASSETS, 'favicon-96.png'));
   await sharp(Buffer.from(markSVG(180, true))).png().toFile(path.join(ASSETS, 'apple-touch-icon.png'));
   await sharp(Buffer.from(ogSVG)).png().toFile(path.join(ASSETS, 'og-image.png'));
-  console.log('✓ Generated favicon-32.png, apple-touch-icon.png, og-image.png');
+  console.log('✓ Generated favicon-32.png, favicon-96.png, apple-touch-icon.png, og-image.png');
 })().catch((e) => {
   console.error('Asset generation failed:', e);
   process.exit(1);

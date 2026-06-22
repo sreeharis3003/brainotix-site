@@ -165,7 +165,7 @@ app.use('/assets', express.static(path.join(ROOT, 'assets'), { maxAge: '7d' }));
 // to the catch-all and return index.html (HTML) — which makes the tab show a generic
 // globe. Serve the real brand icon instead.
 app.get('/favicon.ico', (req, res) =>
-  res.sendFile(path.join(ROOT, 'assets', 'favicon-32.png'))
+  res.sendFile(path.join(ROOT, 'assets', 'favicon-96.png'))
 );
 
 // Serve index.html for any other (non-API, non-asset) GET. This intentionally
